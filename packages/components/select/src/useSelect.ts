@@ -60,6 +60,7 @@ export function useSelectStates(props) {
     isSilentBlur: false,
     prefixWidth: 11,
     tagInMultiLine: false,
+    mouseEnter: false,
   })
 }
 
@@ -780,7 +781,7 @@ export const useSelect = (props, states: States, ctx) => {
   }
 
   const toggleMenu = (e?: PointerEvent) => {
-    if (e && e.pointerType === '') {
+    if (e && !states.mouseEnter) {
       return
     }
     if (!selectDisabled.value) {
@@ -847,6 +848,14 @@ export const useSelect = (props, states: States, ctx) => {
     }
   }
 
+  const handleMouseEnter = () => {
+    states.mouseEnter = true
+  }
+
+  const handleMouseLeave = () => {
+    states.mouseEnter = false
+  }
+
   return {
     optionsArray,
     selectSize,
@@ -896,5 +905,9 @@ export const useSelect = (props, states: States, ctx) => {
     tags,
     selectWrapper,
     scrollbar,
+
+    // Mouser Event
+    handleMouseEnter,
+    handleMouseLeave,
   }
 }
